@@ -10,6 +10,7 @@ class AlertContainer extends Component {
     offset: 14,
     position: 'bottom left',
     theme: 'dark',
+    themeColors: {},
     time: 5000,
     transition: 'scale'
   }
@@ -24,7 +25,8 @@ class AlertContainer extends Component {
       'top center',
       'bottom center'
     ]),
-    theme: PropTypes.oneOf(['dark', 'light']),
+    theme: PropTypes.oneOf(['dark', 'light', 'personalized']),
+    themeColors: ProtoTypes.object,
     time: PropTypes.number,
     transition: PropTypes.oneOf(['scale', 'fade'])
   }
@@ -49,13 +51,14 @@ class AlertContainer extends Component {
   }
 
   show = (message = '', options = {}) => {
-    const {theme, time} = this.props
+    const {theme, time, themeColors} = this.props
 
     const alert = {
       id: nanoid(7),
       message,
       time,
       theme,
+      themeColors,
       ...options
     }
 

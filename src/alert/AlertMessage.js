@@ -12,6 +12,7 @@ class AlertMessage extends Component {
     message: '',
     type: 'info',
     theme: 'dark',
+    themeColors: {},
     time: 0,
     onRemoveAlert: () => {}
   }
@@ -24,7 +25,8 @@ class AlertMessage extends Component {
       PropTypes.string
     ]),
     type: PropTypes.oneOf(['info', 'success', 'error']),
-    theme: PropTypes.oneOf(['dark', 'light']),
+    theme: PropTypes.oneOf(['dark', 'light', 'personalized']),
+    themeColors: ProtoTypes.object,
     time: PropTypes.number,
     onRemoveAlert: PropTypes.func
   }
@@ -45,11 +47,23 @@ class AlertMessage extends Component {
   }
 
   render () {
-    const {message, theme, icon, type} = this.props
-    const dark = theme === 'dark'
+    const {message, theme, themeColors, icon, type} = this.props
+    let backgroundColor = '#333'
+    let closeBackground = '#444'
+    let color = '#fff'
+
+    if (theme === 'light') {
+      backgroundColor = '#fff'
+      closeBackground = '#f3f3f3'
+      color = '#333'
+    } else {
+      backgroundColor = themeColors.backgroundColor
+      closeBackground = themeColors.closeBackground
+      color = themeColors.color
+    }
 
     return (
-      <Alert glam={{dark}}>
+      <Alert glam={{backgroundColor, closeBackground, color}}>
         <IconPlaceholder>
           {icon || <Icon glam={{type}} />}
         </IconPlaceholder>
@@ -57,7 +71,7 @@ class AlertMessage extends Component {
           {message}
         </Message>
         <Close
-          glam={{dark}}
+          glam={{backgroundColor, closeBackground, color}}
           onClick={this._removeItself}
         />
       </Alert>

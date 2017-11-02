@@ -40,8 +40,8 @@ const Alert = glamorous('div')({
     transition: 'all 250ms ease-in'
   }
 }, props => ({
-  backgroundColor: `${props.glam.dark ? '#333' : '#fff'}`,
-  color: `${props.glam.dark ? '#fff' : '#333'}`
+  backgroundColor: `${props.glam.backgroundColor}`,
+  color: `${props.glam.color}`
 }))
 
 export default Alert
